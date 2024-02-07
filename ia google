@@ -10,7 +10,7 @@ def text_to_speech(text, lang='es'):
 
 # Usar la función con un texto de ejemplo
 
-texto = "Bienvenido, Martín Eduardo Martinez Barrera"
+texto = "Bienvenido, Alumnos"
 texto = "En iLabTDI estamos a la vanguardia"
 texto = ""
 archivo_mp3 = text_to_speech(texto)
