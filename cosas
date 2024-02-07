@@ -1,0 +1,45 @@
+import tkinter as tk
+from tkinter import ttk
+from tkinter import filedialog
+import pandas as pd
+
+class CSVViewer(tk.Tk):
+    def __init__(self):
+        super().__init__()
+
+        self.title("Visor de CSV con tkinter")
+        self.geometry("800x600")
+
+        self.tree = ttk.Treeview(self)
+        self.tree.pack(pady=20)
+
+        self.btn_load = tk.Button(self, text="Cargar CSV", command=self.load_csv)
+        self.btn_load.pack(pady=20)
+
+    def load_csv(self):
+        filepath = filedialog.askopenfilename(
+            title="Selecciona el archivo CSV",
+            filetypes=(("Archivos CSV", "*.csv"), ("Todos los archivos", "*.*"))
+        )
+        if not filepath:
+            return
+
+        df = pd.read_csv(filepath)
+        self.update_tree(df)
+
+    def update_tree(self, df):
+        self.tree.delete(*self.tree.get_children())  # Limpiar datos anteriores
+        self.tree["column"] = list(df.columns)
+        self.tree["show"] = "headings"
+        
+        # Definir encabezados
+        for column in df.columns:
+            self.tree.heading(column, text=column)
+
+        # Insertar datos
+        for index, row in df.iterrows():
+            self.tree.insert("", 0, values=list(row))
+
+if __name__ == "__main__":
+    app = CSVViewer()
+    app.mainloop()

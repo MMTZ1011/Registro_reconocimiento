@@ -1,0 +1,22 @@
+from gtts import gTTS
+import os
+
+def text_to_speech(text, lang='es'):
+    """Convierte el texto dado en un archivo de audio MP3."""
+    tts = gTTS(text=text, lang=lang)
+    filename = 'speech2.mp3'
+    tts.save(filename)
+    return filename
+
+# Usar la función con un texto de ejemplo
+
+texto = "Bienvenido, Martín Eduardo Martinez Barrera"
+texto = "En iLabTDI estamos a la vanguardia"
+texto = ""
+archivo_mp3 = text_to_speech(texto)
+
+# Reproducir el archivo resultante si es necesario
+# Para Windows
+os.system(f'start {archivo_mp3}')
+# Para Linux o macOS
+# os.system(f'mpg123 {archivo_mp3}')
